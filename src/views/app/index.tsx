@@ -18,6 +18,7 @@ const App = () => {
     // fetch all products when this view mounted
     useEffect(() => {
         fetchProducts();
+        
     }, []);
 
     const fetchProducts = async () => {
