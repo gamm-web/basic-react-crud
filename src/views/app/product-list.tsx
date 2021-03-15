@@ -8,16 +8,16 @@ const ProductList = () => {
     const [products, setProducts] = useState<Array<product.Product>>([]);
 
     useEffect(() => {
-        fetchProducts();
+        fetchProducts("");
         
     }, []);
 
-    const fetchProducts = async () => {
+    const fetchProducts = async (filter: string) => {
         // clean the products array first
         setProducts([]);
 
         // fetch products from repository
-        const _products = await product.all();
+        const _products = await product.all(filter);
 
         // set products to state
         setProducts(_products);
@@ -31,12 +31,30 @@ const ProductList = () => {
         await product.remove(id);
 
         // fetch again the products
-        fetchProducts();
+        fetchProducts("");
     };
 
     const goToEdit = (id: string) => {
 
         history.push("/edit-product/" + id);
+
+    };
+
+    const removeProduct = async (id: string) => {
+
+        let conf = window.confirm("Remove This Product?");
+
+        if(conf){
+
+            setProducts([]);
+
+            // remove product
+            await product.remove(id);
+
+            // fetch again the products
+            fetchProducts("");
+
+        }
 
     };
 
@@ -48,6 +66,38 @@ const ProductList = () => {
 
             <div className="container"> 
                
+                
+
+                <div className="product-filter">
+
+                    <div className="w-100">
+
+                        <div className="form-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter Keywords"
+                                onChange={ (e) => fetchProducts(e.target.value) }
+                            />
+                        </div>
+
+                    </div>
+
+                    <div className="w-100">
+
+                        <div className="form-group">
+                            <select className="form-control" onChange={ (e) => fetchProducts(e.target.value) }>
+                                <option value="all">All</option>
+                                <option value="asc">A-Z</option>
+                                <option value="desc">Z-A</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    
+                </div>
+
                 {/* show if products is empty */}
                 {products.length === 0 ? (
                     <div className="loading">
@@ -66,16 +116,17 @@ const ProductList = () => {
         <p className="product-details">
         {product.description}
         </p>
+
+        <div className="product-price">
+        ${product.price}
+        </div>
     </div>
 
     <div className="w-20">
 
-        <button onClick={ () => { goToEdit(product.id) } } >🖉 Edit</button>
+        <button onClick={ () => { goToEdit(product.id) } } >Edit</button>
+        <button onClick={ () => { removeProduct(product.id) } } >Remove</button>
 
-       <div className="product-price">
-       ${product.price}
-       </div>
-         
     </div>
   
   <div className="clear"></div>

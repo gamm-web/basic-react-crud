@@ -16,8 +16,53 @@ export type Product = {
 };
 
 // retrieve all products
-export const all = async (): Promise<Array<Product>> => {
-    const snapshot = await db.collection(COLLECTION_NAME).get();
+export const get = async (id: any): Promise<any> => {
+    const snapshot = await db.collection(COLLECTION_NAME).doc(id).get();
+    let data = {};
+
+    // console.log(snapshot);
+    
+    data = snapshot.data();
+
+    return data;
+};
+
+// retrieve all products
+export const all = async (query: any): Promise<Array<Product>> => {
+
+    let snapshot: any = null;
+
+    if(
+        query != "asc" ||
+        query != "desc" ||
+        query.length > 4
+    ){
+        snapshot = await db.collection(COLLECTION_NAME).where("product_name",">=",query).get();
+    }
+    else{
+
+        switch (query){
+
+            case 'asc' : 
+                snapshot = await db.collection(COLLECTION_NAME).orderBy("product_name","asc").get();
+            break;
+    
+            case 'desc' : 
+                snapshot = await db.collection(COLLECTION_NAME).orderBy("product_name","desc").get();
+            break;
+    
+    
+            default: 
+                snapshot = await db.collection(COLLECTION_NAME).get();
+            break;
+    
+        }
+
+    }
+
+    
+    
+    
     const data: Array<any> = [];
 
     snapshot.docs.map((_data) => {

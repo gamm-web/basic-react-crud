@@ -4,6 +4,9 @@ html, body, #root, .app{
     width: 100%;
     font-family: Arial;
     height: 100%;
+    padding-bottom: 20% !important;
+    padding-top: 20px;
+
 }
 
 
@@ -98,8 +101,19 @@ main button a{
     box-shadow: 1px 1px 3px #333;
     margin-top: 15px;
     padding: 0px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 30px;
+    padding-top: 15px;
+}
+
+.product-filter{
+    background-color: #eaeaea;
+    width: 95%;
+    margin: auto;
+    box-shadow: 1px 1px 3px #333;
+    margin-top: 15px;
+    padding: 0px;
+    padding-bottom: 2px;
+    padding-top: 2px;
 }
 
 .table-list{
@@ -139,6 +153,8 @@ main button a{
 .product-item button {
     margin-bottom: 5px;
     font-size: 13px;
+    margin-right:5px;
+    width: 65px;
 }
 
 .product-price{
