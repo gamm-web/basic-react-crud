@@ -28,39 +28,22 @@ export const get = async (id: any): Promise<any> => {
 };
 
 // retrieve all products
-export const all = async (query: any): Promise<Array<Product>> => {
+export const all = async (query: string): Promise<Array<Product>> => {
 
     let snapshot: any = null;
 
-    if(
-        query != "asc" ||
-        query != "desc" ||
-        query.length > 4
-    ){
-        snapshot = await db.collection(COLLECTION_NAME).where("product_name",">=",query).get();
+    if( query == "asc" ){
+        snapshot = await db.collection(COLLECTION_NAME).orderBy("product_name","asc").get();
+    }
+    else if( query == "desc"){
+        snapshot = await db.collection(COLLECTION_NAME).orderBy("product_name","desc").get();
+    }
+    else if( query == "all"){
+        snapshot = await db.collection(COLLECTION_NAME).get();
     }
     else{
-
-        switch (query){
-
-            case 'asc' : 
-                snapshot = await db.collection(COLLECTION_NAME).orderBy("product_name","asc").get();
-            break;
-    
-            case 'desc' : 
-                snapshot = await db.collection(COLLECTION_NAME).orderBy("product_name","desc").get();
-            break;
-    
-    
-            default: 
-                snapshot = await db.collection(COLLECTION_NAME).get();
-            break;
-    
-        }
-
+        snapshot = await db.collection(COLLECTION_NAME).where("product_name",">=",query).get();
     }
-
-    
     
     
     const data: Array<any> = [];

@@ -60,8 +60,7 @@ const EditProduct = ({match:{params:{id}}}) => {
                     description: description, 
                     price: price, 
                     discount:discount, 
-                    created_date: 
-                    created_date, 
+                    created_date: created_date, 
                     modified_date: new Date() 
                 }
             );
@@ -97,6 +96,7 @@ const EditProduct = ({match:{params:{id}}}) => {
                 {product_name.length !== 0 ? (
 
                     <Fragment>
+                        
                     <div className="form-group">
                         <label>Name</label>
                         <input 
