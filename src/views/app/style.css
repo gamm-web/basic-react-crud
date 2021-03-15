@@ -76,6 +76,7 @@ main button a{
     font-weight: bolder;
     line-height: 2;
     text-align: center; 
+    color:#fff;
 
     background: rgb(108,218,114);
     background: -moz-linear-gradient(90deg, rgba(108,218,114,1) 10%, rgba(0,255,16,1) 50%, rgba(108,218,114,1) 90%);
@@ -188,6 +189,7 @@ main button a{
     border: 1px solid #ddd;
     padding-bottom: 5px;
     padding-top: 5px;
+    color:#fff;
 
 
     background: rgb(108,218,114);

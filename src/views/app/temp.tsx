@@ -1,8 +1,12 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { Fragment, FormEvent, useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import "./style.css";
 import * as product from "../../db/repositories/product";
+import { useHistory } from "react-router-dom";
+import AddProduct from "./new-product";
+import EditProduct from "./edit-product";
 
-const App1 = () => {
+const App1 = () => {    
     // some needed states
     const [isEditMode, setIsEditMode] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,12 +102,6 @@ const App1 = () => {
         setSelectedId(id);
     };
 
-    const test = () => {
-
-        return <h1>wew</h1>;
-
-    };
-
     
     return (
         <div className="app">
@@ -187,7 +185,8 @@ const App1 = () => {
                 ) : null}
 
                 {/* products item  */}
-                {products.map((product, index) => (
+                {
+                products.map((product, index) => (
                     <div className="list-item" key={product.id} style={{ marginTop: index > 0 ? "12px" : "" }}>
                         <span className="product_name">{product.product_name}</span>
                         <span className="created_date">On: {product.created_date.toDate().toDateString()}</span>
@@ -200,10 +199,32 @@ const App1 = () => {
                             Delete
                         </span>
                     </div>
-                ))}
+                ))
+                }
+                
             </div>
         </div>
     );
 }; 
 
-export default App1;
+const Home = () => (
+  <Fragment>
+    <h1>Home</h1>
+     
+  </Fragment>
+  );
+
+const About = ({match:{params:{name}}}) => (
+  // props.match.params.name
+  <Fragment>
+    <h1>About {name}</h1>
+     
+  </Fragment>
+);
+
+const Contact = () => (
+  <Fragment>
+    <h1>Contact</h1>
+     
+  </Fragment>
+  );
